@@ -1,0 +1,8 @@
+---
+project_name: wifi_hotspot
+project_repo_url: git@github.com:corsecotech/wifi-hotspot-web.git
+project_repo_remote: origin
+domain_name: wifi_hotspot.com
+repo_version: master
+pg_gis: False
+sass_with_django_compressor: False
