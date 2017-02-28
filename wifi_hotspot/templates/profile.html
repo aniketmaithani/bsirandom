@@ -1,0 +1,55 @@
+{% load raven %}
+{% load staticfiles i18n %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+    <title>{% block title %}Wifi Hotspot - Captive Portal{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="{{ site_info.RELEASE_VERSION }}">
+    <meta name="description" content="{% block meta_description %}{% endblock meta_description %}">
+
+    {% block css %}
+    <link href="{% static 'login/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'login/css/main.css' %}" rel="stylesheet">
+        <link href="{% static 'login/css/profile.css' %}" rel="stylesheet">
+    {% endblock css %}
+    </head>
+    <body>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <img src="{% static 'images/7up.jpg' %}" alt="" class="img-rounded img-responsive" />
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <h4>
+                        7 UP User
+                           </h4>
+                        <small><cite title="New Delhi, India">New Delhi, India <i class="glyphicon glyphicon-map-marker">
+                        </i></cite></small>
+                        <p>
+                        <!-- Split button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary">
+                             {{ password }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<center> <a href="{% url 'profile' %}" class="btn btn-lg btn-success">Generate Password</a> </center>
+<br>
+  <center>  <a href="#" class="btn btn-lg btn-default">Powered By BSI</a> </center>
+</body>
+    </html>
+
+

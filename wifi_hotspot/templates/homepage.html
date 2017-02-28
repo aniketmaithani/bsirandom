@@ -1,0 +1,22 @@
+{% load raven %}
+{% load staticfiles i18n %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+    <title>{% block title %}Wifi Hotspot - Captive Portal{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="{{ site_info.RELEASE_VERSION }}">
+    <meta name="description" content="{% block meta_description %}{% endblock meta_description %}">
+
+    {% block css %}
+    <link href="{% static 'login/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'login/css/main.css' %}" rel="stylesheet">
+        <link href="{% static 'login/css/profile.css' %}" rel="stylesheet">
+    {% endblock css %}
+    </head>
+    <body>
+<center> <a href="{% url 'profile' %}" class="btn btn-lg btn-success">Generate Password</a> </center>
+</body>
+</html>

@@ -14,6 +14,8 @@ from django.views.generic import TemplateView
 
 # Wifi Hotspot  Stuff
 from wifi_hotspot.base import views as base_views
+from wifi_hotspot.wifi_hotspot.views import (
+    homepage, generate_random_password, redirect_to_homepage)
 
 from .routers import router
 
@@ -22,8 +24,11 @@ handler500 = base_views.server_error
 # Top Level Pages
 # ==============================================================================
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
+    url(r'^$', redirect_to_homepage, name="home"),
+    url(r'^login/$', TemplateView.as_view(template_name='login.html'), name="login"),
+    url(r'^profile/$', generate_random_password, name="profile"),
+    url(r'^home/$', homepage, name="home"),
+    url(r'^backend/$', TemplateView.as_view(template_name='backend.html'), name="backend"),
     # Your stuff: custom urls go here
 ]
 
@@ -60,12 +65,16 @@ if settings.DEBUG:
     ]
 
     # Livereloading
-    urlpatterns += [url(r'^devrecargar/', include('devrecargar.urls', namespace='devrecargar'))]
+    urlpatterns += [url(r'^devrecargar/',
+                        include('devrecargar.urls', namespace='devrecargar'))]
 
     urlpatterns += [
-        url(r'^400/$', dj_default_views.bad_request, kwargs={'exception': Exception("Bad Request!")}),
-        url(r'^403/$', dj_default_views.permission_denied, kwargs={'exception': Exception("Permission Denied!")}),
+        url(r'^400/$', dj_default_views.bad_request,
+            kwargs={'exception': Exception("Bad Request!")}),
+        url(r'^403/$', dj_default_views.permission_denied,
+            kwargs={'exception': Exception("Permission Denied!")}),
         url(r'^403_csrf/$', get_callable(settings.CSRF_FAILURE_VIEW)),
-        url(r'^404/$', dj_default_views.page_not_found, kwargs={'exception': Exception("Not Found!")}),
+        url(r'^404/$', dj_default_views.page_not_found,
+            kwargs={'exception': Exception("Not Found!")}),
         url(r'^500/$', handler500),
     ]
