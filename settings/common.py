@@ -32,6 +32,7 @@ INSTALLED_APPS = (
 
     'wifi_hotspot.base',
     'wifi_hotspot.users',
+    'wifi_hotspot.wifi_hotspot',
 
     'rest_framework',  # http://www.django-rest-framework.org/
     'versatileimagefield',  # https://github.com/WGBH/django-versatileimagefield/
