@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.base import View
 from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect
 from django.db.models import Q
 from .models import PasswordGeneration
 import datetime
