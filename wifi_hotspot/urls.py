@@ -28,7 +28,6 @@ urlpatterns = [
     url(r'^login/$', TemplateView.as_view(template_name='login.html'), name="login"),
     url(r'^profile/$', generate_random_password, name="profile"),
     url(r'^home/$', homepage, name="home"),
-    url(r'^backend/$', TemplateView.as_view(template_name='backend.html'), name="backend"),
     # Your stuff: custom urls go here
 ]
 

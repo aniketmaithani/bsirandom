@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import redirect, render
+from django.db.models import Q
 from .models import PasswordGeneration
 import datetime
 import random
@@ -17,6 +18,15 @@ def generate_random_password(request):
     password_generated = random.randint(0000, 9999)
     stored_in_model = PasswordGeneration.objects.create(password_unique=password_generated)
     stored_in_model.save()
+    if request.method == "POST":
+        password = request.POST['password']
+        exists = PasswordGeneration.objects.filter(
+            Q(password_unique__icontains=password))
+        try:
+            if exists.all()[0].password_unique == password:
+                redirect('popo')
+        except:
+            redirect('/profile/')
     return render(request, 'profile.html', {'password': password_generated})
 
 
