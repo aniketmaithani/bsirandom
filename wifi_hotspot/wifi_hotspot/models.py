@@ -6,7 +6,7 @@ from django.db import models
 
 class PasswordGeneration(models.Model):
     password_unique = models.CharField(blank=False, null=False,
-                                       max_length=100, help_text='Phone Number of the Complainee')
+                                       max_length=100)
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name="Created At",)
 
