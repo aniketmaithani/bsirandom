@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 # Wifi Hotspot  Stuff
 from wifi_hotspot.base import views as base_views
 from wifi_hotspot.wifi_hotspot.views import (
-    homepage, generate_random_password, redirect_to_homepage)
+    homepage, GeneratePasswordView, redirect_to_homepage)
 
 from .routers import router
 
@@ -26,7 +26,7 @@ handler500 = base_views.server_error
 urlpatterns = [
     url(r'^$', redirect_to_homepage, name="home"),
     url(r'^login/$', TemplateView.as_view(template_name='login.html'), name="login"),
-    url(r'^profile/$', generate_random_password, name="profile"),
+    url(r'^profile/$', GeneratePasswordView.as_view(), name="profile"),
     url(r'^home/$', homepage, name="home"),
     # Your stuff: custom urls go here
 ]
