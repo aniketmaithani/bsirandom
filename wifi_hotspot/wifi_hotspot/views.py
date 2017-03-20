@@ -8,11 +8,7 @@ import random
 
 
 def redirect_to_homepage(request):
-    return redirect('/home/')
-
-
-def homepage(request):
-    return render(request, 'homepage.html')
+    return redirect('/profile/')
 
 
 def delete_password_after_limited_time():
