@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 
 ROOT_DIR = environ.Path(__file__) - 2  # (/a/b/myfile.py - 2 = /a/)
 APPS_DIR = ROOT_DIR.path('wifi_hotspot')
+ALLOWED_HOSTS = ['*']
 
 env = environ.Env()
 
@@ -190,7 +191,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': env.db("DATABASE_URL", default="postgres://localhost/wifi_hotspot"),
+    'default': env.db("DATABASE_URL", default="postgres://pi:pi@localhost/wifi_hotspot"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 DATABASES['default']['CONN_MAX_AGE'] = 10

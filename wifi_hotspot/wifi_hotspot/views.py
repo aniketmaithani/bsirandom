@@ -5,11 +5,10 @@ from django.db.models import Q
 from .models import PasswordGeneration
 import datetime
 import random
-
+import os
 
 def redirect_to_homepage(request):
     return redirect('/profile/')
-
 
 def delete_password_after_limited_time():
     password_object_from_model = PasswordGeneration.objects.all()
@@ -26,12 +25,23 @@ def delete_password_after_limited_time():
 class GeneratePasswordView(View):
 
     def get(self, request):
-        password_generated = random.randint(0000, 9999)
-        delete_password_after_limited_time()
-        stored_in_model = PasswordGeneration.objects.create(
-            password_unique=password_generated)
-        stored_in_model.save()
-        return render(request, 'profile.html', {'password': password_generated})
+        try:
+            with open('/home/pi/bsirandom/wifi_hotspot/wifi_hotspot/scanner.txt', 'r') as f:
+                z = f.read()
+        except:
+            z = "none"
+            pass
+
+        if z == "BARCODE DETECTED":
+            password_generated = random.randint(0000, 9999)
+            delete_password_after_limited_time()
+            stored_in_model = PasswordGeneration.objects.create(
+                password_unique=password_generated)
+            stored_in_model.save()
+            os.remove('/home/pi/bsirandom/wifi_hotspot/wifi_hotspot/scanner.txt')
+            return render(request, 'profile.html', {'password': password_generated})
+        else:
+            return render(request, 'profile.html', {'password': "PASSWORD NOT GENERATED"})
 
     def post(self, request):
         password = request.POST['password']
@@ -39,6 +49,7 @@ class GeneratePasswordView(View):
             Q(password_unique__icontains=password))
         try:
             if exists.all()[0].password_unique == password:
+                print(request.META.get('REMOTE_ADDR'))
                 return redirect('http://www.google.co.in/')
         except:
             return redirect('/profile/')
