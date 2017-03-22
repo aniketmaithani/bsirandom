@@ -6,6 +6,8 @@ from .models import PasswordGeneration
 import datetime
 import random
 import os
+import requests
+
 
 def redirect_to_homepage(request):
     return redirect('/profile/')
@@ -49,7 +51,8 @@ class GeneratePasswordView(View):
             Q(password_unique__icontains=password))
         try:
             if exists.all()[0].password_unique == password:
-                print(request.META.get('REMOTE_ADDR'))
+                whitelist_ip = request.META.get('REMOTE_ADDR')
+                requests.post('http://localhost:8002/process_ip/', data=whitelist_ip)
                 return redirect('http://www.google.co.in/')
         except:
             return redirect('/profile/')
